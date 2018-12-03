@@ -6,16 +6,25 @@
 </template>
 <script>
   import FootGuide from "./components/FootGuide/FootGuide"
-  import {reqAddress} from "./api"
+  import {mapActions} from "vuex"
+
   export default {
     name: 'App',
     components:{
       FootGuide
     },
-    async mounted(){
-      const result = await reqAddress("40.10038","116.36867");
-      console.log(result);
+    /*请求地址信息到状态中,便于home组件读取显示*/
+    mounted(){
+      this.$store.dispatch("getAddress");
+      /*发送请求实现根据会话自动登陆*/
+      this.$store.dispatch("getUser");
     }
+    /*methods:{
+      ...mapActions(['getAddress'])
+    },
+    mounted(){
+      this.getAddress();
+    }*/
   }
 </script>
 
